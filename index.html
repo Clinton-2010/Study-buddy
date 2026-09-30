@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StudyBuddy</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#5b5bd6"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#faf8f3;--card:#fff;--ink:#1d1b16;--mute:#6b665b;--acc:#3b5bdb;--acc2:#e8edff;--ok:#2f9e44;--bad:#e03131;--line:#e5e0d3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14130f;--card:#1e1c17;--ink:#f1eee6;--mute:#a09a8b;--acc:#8ea2ff;--acc2:#252a45;--line:#38352c}}
+:root[data-theme="dark"]{--bg:#14130f;--card:#1e1c17;--ink:#f1eee6;--mute:#a09a8b;--acc:#8ea2ff;--acc2:#252a45;--line:#38352c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:16px}
+h1{font:700 26px/1.2 Georgia,serif;margin:8px 0 2px}
+.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 13px}
+button.p{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
+button:disabled{opacity:.5}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.chip.on{background:var(--acc2);border-color:var(--acc);color:var(--acc);font-weight:600}
+.t{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.t:last-child{border:0}.t span{flex:1}.t.d span{text-decoration:line-through;color:var(--mute)}
+.t input{width:20px;height:20px;padding:0}
+.bar{height:8px;background:var(--acc2);border-radius:9px;overflow:hidden;margin:6px 0 10px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+#out h2{font:700 18px/1.3 Georgia,serif;margin:18px 0 6px;color:var(--acc)}
+#out h2:first-child{margin-top:0}
+#out p{margin:6px 0}#out ul,#out ol{padding-left:22px;margin:6px 0}
+#out code{background:var(--acc2);padding:1px 5px;border-radius:5px}
+.q{margin:14px 0}.q button{display:block;width:100%;text-align:left;margin-top:6px}
+.q .ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}
+.q .no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,transparent)}
+.why{color:var(--mute);font-size:14px;margin-top:6px}
+.fc{width:calc(50% - 4px);min-height:84px;text-align:center;font-weight:600;background:var(--acc2);border-color:var(--acc)}
+.fc.bk{background:var(--card);font-weight:400}
+#fq{flex:1;min-width:0;width:auto}
+:root{--acc:#5b5bd6;--acc2:#ececfb;--onacc:#fff;--bg:#f5f4fa;--card:#fff;--line:#e6e4f2;--sh:0 8px 28px rgba(60,50,120,.09)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--acc:#8383f7;--acc2:#24243f;--onacc:#0e0e18;--bg:#0d0d15;--card:#161623;--line:#2a2a40;--sh:none}}
+:root[data-theme="dark"]{--acc:#8383f7;--acc2:#24243f;--onacc:#0e0e18;--bg:#0d0d15;--card:#161623;--line:#2a2a40;--sh:none}
+body{background:radial-gradient(700px 320px at 50% -80px,var(--acc2),var(--bg));min-height:100vh}
+h1{font:800 30px/1.1 system-ui,sans-serif;letter-spacing:-.02em;margin-top:14px}
+.card{border-radius:20px;box-shadow:var(--sh);padding:16px}
+input,textarea{border-radius:14px;padding:14px;font-size:16px}
+input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:0}
+button{border-radius:12px;padding:10px 14px}
+button.p{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+#go{width:100%;padding:14px;font-size:17px}
+#levels{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--bg);padding:4px;border:1px solid var(--line);border-radius:14px;margin:12px 0 0}
+#levels .chip{border:0;background:transparent;padding:10px 2px;font-size:14px;white-space:nowrap}
+#levels .chip.on{background:var(--card);color:var(--acc);box-shadow:0 1px 6px rgba(0,0,0,.18)}
+#out{font-size:17px;line-height:1.65}
+#out h2{color:var(--acc)}
+.tab{display:none}.tab.on{display:block}
+main{padding-bottom:100px}
+#nav{position:fixed;left:0;right:0;bottom:0;display:flex;gap:4px;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+#nav button{flex:1;border:0;background:transparent;border-radius:12px;padding:8px 0;font-size:12px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px}
+#nav button b{font-size:20px;line-height:1}
+#nav button.on{color:var(--acc);background:var(--acc2);font-weight:700}
+.hide{display:none}
+.mute{color:var(--mute);font-size:14px}
+</style></head><body><main>
+<h1>📚 StudyBuddy</h1>
+<p class="sub">Type any topic from any subject. Get it broken down, explained simply, with examples.</p>
+<div class="mute" id="streak" style="margin:-8px 0 12px"></div>
+
+<section class="tab" id="t-set">
+<div class="card" id="set">
+  <b>⚙️ Settings</b>
+  <p class="mute" style="margin:4px 0 8px">Get a free key at aistudio.google.com/apikey. It is saved only in this browser.</p>
+  <input id="key" type="password" placeholder="Paste your Gemini API key">
+  <select id="mod" style="width:100%;margin-top:8px;padding:12px;border-radius:12px;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line)">
+   <option value="gemini-2.5-flash">🧠 Smartest: Gemini 2.5 Flash (switches to Lite if limit hit)</option>
+   <option value="gemini-2.5-flash-lite">⚡ Fastest, highest free limit: 2.5 Flash-Lite</option>
+  </select>
+  <div class="row"><button class="p" id="sv">Save</button></div>
+</div>
+
+</section>
+<section class="tab on" id="t-learn">
+<div class="card">
+  <input id="topic" placeholder="What do you want to learn?" enterkeyhint="go">
+  <div class="row" id="levels"></div>
+  <div class="row"><button class="p" id="go">Teach me</button></div>
+</div>
+
+<div class="card hide" id="lesson">
+  <div id="out"></div>
+  <div class="row" id="acts">
+    <button data-m="Explain it even more simply, with a fun everyday story.">Simpler</button>
+    <button data-m="Give 3 more different worked examples.">More examples</button>
+    <button data-m="Go deeper with extra detail suitable for an exam.">Go deeper</button>
+    <button id="qz">🎯 Quiz me</button>
+    <button id="cd">🃏 Flashcards</button>
+    <button id="ls">🔊 Listen</button>
+  </div>
+  <div id="quiz"></div>
+  <div id="cards" class="row"></div>
+  <div class="row"><input id="fq" placeholder="Ask a follow-up question…"><button class="p" id="fa">Ask</button></div>
+  <div id="ans"></div>
+</div>
+
+</section>
+<section class="tab" id="t-saved">
+<div class="card" id="libc">
+  <b>📖 Saved lessons</b> <span class="mute">(open instantly, no usage)</span>
+  <p class="mute" id="empty">Nothing saved yet. Lessons you learn appear here.</p><div id="lib"></div>
+</div>
+
+</section>
+<section class="tab" id="t-plan">
+<div class="card">
+  <b>My scheme of work</b>
+  <p class="mute" style="margin:4px 0 8px">Paste your topics, one per line. Tick them off as you learn.</p>
+  <textarea id="sow" placeholder="1. Cells&#10;2. Photosynthesis&#10;3. Respiration"></textarea>
+  <div class="row"><button id="load">Add to checklist</button><button id="clear">Clear</button></div>
+  <div id="prog" class="hide"><div class="bar"><i id="fill"></i></div><div class="mute" id="ptxt"></div></div>
+  <div id="list"></div>
+</div>
+</section></main>
+<nav id="nav"><button data-t="learn" class="on"><b>🎓</b>Learn</button><button data-t="saved"><b>📖</b>Saved</button><button data-t="plan"><b>✅</b>Plan</button><button data-t="set"><b>⚙️</b>Settings</button></nav>
+<script>
+const $=id=>document.getElementById(id);
+const LEVELS=[["5","👶 Age 5"],["simple","🙂 Simple"],["exam","🎓 Exam"]];
+let level="5",cur="",lastText="",ac=null,topics=[];
+try{topics=JSON.parse(localStorage.getItem("sb")||"[]")}catch(e){}
+function save(){try{localStorage.setItem("sb",JSON.stringify(topics))}catch(e){}}
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function inl(s){return esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`(.+?)`/g,"<code>$1</code>")}
+function md(t){let h="",l=null;const cl=()=>{if(l){h+="</"+l+">";l=null}};
+ for(const r of t.split("\n")){let m;
+  if(m=r.match(/^#{1,3}\s+(.*)/)){cl();h+="<h2>"+inl(m[1])+"</h2>"}
+  else if(m=r.match(/^\s*[-*]\s+(.*)/)){if(l!="ul"){cl();h+="<ul>";l="ul"}h+="<li>"+inl(m[1])+"</li>"}
+  else if(m=r.match(/^\s*\d+[.)]\s+(.*)/)){if(l!="ol"){cl();h+="<ol>";l="ol"}h+="<li>"+inl(m[1])+"</li>"}
+  else if(r.trim()){cl();h+="<p>"+inl(r)+"</p>"}else cl()}
+ cl();return h}
+function drawLevels(){$("levels").innerHTML="";LEVELS.forEach(([k,n])=>{const b=document.createElement("button");b.textContent=n;b.className="chip"+(k==level?" on":"");b.onclick=()=>{level=k;drawLevels()};$("levels").appendChild(b)})}
+async function teach(topic,extra){
+ topic=(topic||"").trim();if(!topic)return;cur=topic;tab("learn");$("topic").value=topic;
+ $("lesson").classList.remove("hide");$("quiz").innerHTML="";$("cards").innerHTML="";$("ans").innerHTML="";stopSpeak();const key=topic.toLowerCase()+"|"+level;
+ if(!extra&&lib[key]){lastText=lib[key];$("out").innerHTML=md(lastText);$("lesson").scrollIntoView({behavior:"smooth"});return}
+ $("out").innerHTML='<p class="mute">Thinking…</p>';
+ $("lesson").scrollIntoView({behavior:"smooth"});
+ const sample=window.claude?await claude.use("sample"):null;
+ if(!sample){$("out").innerHTML="<p>Add your free Gemini key in ⚙️ Settings first.</p>";return}
+ if(ac)ac.abort();ac=new AbortController();
+ const lv={"5":"Explain as if to a curious 5-year-old: tiny words, playful analogies.","simple":"Explain simply for a beginner, plain language, define any jargon.","exam":"Explain clearly for a student preparing for exams: precise terms, key formulas or facts, exam tips."}[level];
+ const p=`You are a warm, clear teacher for any school or university subject. Teach this topic: "${topic}".
+${lv}
+Use markdown with exactly these sections:
+## Big idea (1-2 sentences)
+## Explain like I'm 5 (a short story or everyday analogy)
+## Break it down (numbered key parts or steps)
+## Examples (2-3 concrete worked examples)
+## Remember (3 short bullets)
+## Common mistakes (2-3 bullets)
+No filler, no intro.${extra?"\nExtra request: "+extra:""}`;
+ try{const r=await sample(p,{onText:({text})=>{lastText=text;$("out").innerHTML=md(text)},signal:ac.signal,cache:false});lastText=r.text;$("out").innerHTML=md(r.text);lib[key]=r.text;saveLib();ping();drawLib()}
+ catch(e){if(e&&e.code==="cancelled")return;$("out").innerHTML="<p>"+(e&&e.code==="not_granted"?"Your Gemini key was rejected. Check it in ⚙️ Settings.":"Couldn't reach Gemini. You may have hit the free limit. Wait a minute and try again.")+"</p>"}
+}
+async function quiz(){
+ const box=$("quiz");box.innerHTML='<p class="mute">Making your quiz…</p>';
+ const sample=window.claude?await claude.use("sample"):null;if(!sample)return;
+ try{const qs=await sample.json(`Write 4 multiple-choice questions to test understanding of "${cur}" at a ${level=="5"?"very simple":level=="simple"?"beginner":"exam"} level. Return ONLY JSON: [{"q":"","options":["","","",""],"answer":0,"why":""}] where answer is the index of the correct option.`,{cache:false});
+  box.innerHTML="";let score=0,done=0;
+  qs.forEach((q,i)=>{const d=document.createElement("div");d.className="q";const h=document.createElement("b");h.textContent=(i+1)+". "+q.q;d.appendChild(h);
+   q.options.forEach((o,j)=>{const b=document.createElement("button");b.textContent=o;b.onclick=()=>{if(d.dataset.d)return;d.dataset.d=1;done++;
+    d.querySelectorAll("button").forEach((x,k)=>{if(k==q.answer)x.classList.add("ok")});
+    if(j==q.answer)score++;else b.classList.add("no");
+    const w=document.createElement("div");w.className="why";w.textContent=q.why;d.appendChild(w);
+    if(done==qs.length){const s=document.createElement("p");s.innerHTML="<b>Score: "+score+"/"+qs.length+"</b>";box.appendChild(s)}};d.appendChild(b)});
+   box.appendChild(d)})}
+ catch(e){box.innerHTML="<p>Couldn't make a quiz. Try again.</p>"}
+}
+function drawList(){const L=$("list");L.innerHTML="";const n=topics.length;$("prog").classList.toggle("hide",!n);
+ const d=topics.filter(t=>t.d).length;$("fill").style.width=n?(100*d/n)+"%":"0";$("ptxt").textContent=d+" of "+n+" topics done";
+ topics.forEach((t,i)=>{const r=document.createElement("div");r.className="t"+(t.d?" d":"");
+  const c=document.createElement("input");c.type="checkbox";c.checked=t.d;c.onchange=()=>{t.d=c.checked;save();drawList()};
+  const s=document.createElement("span");s.textContent=t.t;
+  const b=document.createElement("button");b.textContent="Learn";b.onclick=()=>teach(t.t);
+  r.append(c,s,b);L.appendChild(r)})}
+$("go").onclick=()=>teach($("topic").value);
+$("topic").onkeydown=e=>{if(e.key==="Enter")teach($("topic").value)};
+$("acts").onclick=e=>{const m=e.target.dataset&&e.target.dataset.m;if(m)teach(cur,m)};
+$("qz").onclick=quiz;
+$("load").onclick=()=>{$("sow").value.split("\n").map(s=>s.replace(/^\s*(?:[-*•]|\d+[.)])\s*/,"").trim()).filter(Boolean).forEach(t=>topics.push({t,d:false}));$("sow").value="";save();drawList()};
+$("clear").onclick=()=>{if(topics.length&&confirm("Clear your checklist?")){topics=[];save();drawList()}};
+let lib={};try{lib=JSON.parse(localStorage.getItem("sb_lib")||"{}")}catch(e){}
+function saveLib(){try{localStorage.setItem("sb_lib",JSON.stringify(lib))}catch(e){}}
+function drawLib(){const L=$("lib");L.innerHTML="";const ks=Object.keys(lib).reverse();$("empty").classList.toggle("hide",!!ks.length);
+ ks.forEach(k=>{const [t,lv]=k.split("|");const r=document.createElement("div");r.className="t";
+  const s=document.createElement("span");s.textContent=t+" · "+({"5":"Like 5",simple:"Simple",exam:"Exam"}[lv]||lv);
+  const b=document.createElement("button");b.textContent="Open";b.onclick=()=>{level=lv;drawLevels();teach(t)};
+  const x=document.createElement("button");x.textContent="✕";x.onclick=()=>{delete lib[k];saveLib();drawLib();streak()};
+  r.append(s,b,x);L.appendChild(r)});streak()}
+function ping(){try{const d=new Date().toDateString();const a=JSON.parse(localStorage.getItem("sb_days")||"[]");if(!a.includes(d)){a.push(d);localStorage.setItem("sb_days",JSON.stringify(a.slice(-60)))}}catch(e){}streak()}
+function streak(){let n=0;try{const a=JSON.parse(localStorage.getItem("sb_days")||"[]");const d=new Date();if(!a.includes(d.toDateString()))d.setDate(d.getDate()-1);while(a.includes(d.toDateString())){n++;d.setDate(d.getDate()-1)}}catch(e){}
+ $("streak").textContent=(n?"🔥 "+n+"-day streak · ":"")+Object.keys(lib).length+" lessons saved"}
+async function ask(){const q=$("fq").value.trim();if(!q||!lastText)return;$("fq").value="";
+ const sample=window.claude?await claude.use("sample"):null;if(!sample)return;
+ const p=document.createElement("div");p.className="card";p.style.margin="10px 0 0";
+ const qh=document.createElement("b");qh.textContent="You: "+q;const a=document.createElement("div");a.textContent="Thinking…";p.append(qh,a);$("ans").appendChild(p);
+ try{const r=await sample(`A student is learning "${cur}". Lesson:\n${lastText}\n\nStudent question: ${q}\nAnswer clearly and briefly at the same level, with an example if useful. Markdown allowed.`,{onText:({text})=>{a.innerHTML=md(text)},cache:false});a.innerHTML=md(r.text)}
+ catch(e){a.textContent="Couldn't answer. Try again."}}
+async function makeCards(){const box=$("cards");box.innerHTML='<p class="mute">Making flashcards…</p>';
+ const sample=window.claude?await claude.use("sample"):null;if(!sample)return;
+ try{const cs=await sample.json(`Make 8 flashcards to revise "${cur}". Return ONLY JSON: [{"front":"question or term","back":"short answer or definition"}]`,{cache:false});
+  box.innerHTML="";cs.forEach(c=>{const d=document.createElement("button");d.className="fc";d.textContent=c.front;let f=true;
+   d.onclick=()=>{f=!f;d.textContent=f?c.front:c.back;d.classList.toggle("bk",!f)};box.appendChild(d)})}
+ catch(e){box.textContent="Couldn't make flashcards. Try again."}}
+function stopSpeak(){try{speechSynthesis.cancel()}catch(e){}}
+$("ls").onclick=()=>{try{if(speechSynthesis.speaking){stopSpeak();return}const u=new SpeechSynthesisUtterance(lastText.replace(/[#*`]/g,""));u.rate=.95;speechSynthesis.speak(u)}catch(e){}};
+$("cd").onclick=makeCards;$("fa").onclick=ask;$("fq").onkeydown=e=>{if(e.key==="Enter")ask()};
+const MODELS={smart:"gemini-2.5-flash",fast:"gemini-2.5-flash-lite"};
+function cfg(){try{return JSON.parse(localStorage.getItem("sb_cfg")||"{}")}catch(e){return{}}}
+function ce(code){const x=new Error(code);x.code=code;return x}
+async function gem(prompt,o={}){
+ const c=cfg();let model=c.model||MODELS.smart;
+ for(let n=0;n<2;n++){
+  const body={contents:[{role:"user",parts:[{text:prompt}]}],generationConfig:{temperature:.6}};
+  if(o.json)body.generationConfig.responseMimeType="application/json";
+  let res;
+  try{res=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+model+":streamGenerateContent?alt=sse&key="+encodeURIComponent(c.key),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),signal:o.signal})}
+  catch(e){throw e.name==="AbortError"?ce("cancelled"):ce("network")}
+  if(res.status===429&&model!==MODELS.fast){model=MODELS.fast;continue}
+  if(!res.ok)throw ce(res.status===400||res.status===403?"not_granted":"limit");
+  const rd=res.body.getReader(),dc=new TextDecoder();let buf="",text="";
+  try{while(true){const {done,value}=await rd.read();if(done)break;buf+=dc.decode(value,{stream:true});
+   const ls=buf.split("\n");buf=ls.pop();
+   for(const l of ls){if(!l.startsWith("data:"))continue;try{const j=JSON.parse(l.slice(5));const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(p=>p.text||"").join("");if(t){text+=t;if(o.onText)o.onText({text})}}catch(e){}}}}
+  catch(e){throw e.name==="AbortError"?ce("cancelled"):ce("network")}
+  return {text}}
+ throw ce("limit")}
+window.claude={use:async()=>{if(!cfg().key){tab("set");return null}
+ const f=(p,o)=>gem(p,o);f.json=async(p,o)=>{const r=await gem(p+"\nReturn ONLY valid JSON.",{...o,json:true});return JSON.parse(r.text.replace(/```json|```/g,"").trim())};return f}};
+$("key").value=cfg().key||"";$("mod").value=cfg().model||MODELS.smart;
+$("sv").onclick=()=>{try{localStorage.setItem("sb_cfg",JSON.stringify({key:$("key").value.trim(),model:$("mod").value}))}catch(e){}tab("learn")};
+function tab(n){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on",t.id==="t-"+n));document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===n));scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>tab(b.dataset.t));
+if(!cfg().key)tab("set");
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(()=>{});
+drawLevels();drawList();drawLib();
+</script></body></html>
